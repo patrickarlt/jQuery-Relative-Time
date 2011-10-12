@@ -2,13 +2,23 @@
 
 Usage
 
-`<time datetime="" data-display="countdown"></time>`
+`<time datetime="" data-relativize="FORMAT"></time>`
 
 or
 
-$('time').countdown();
+`$('time').relative(options);`
 
-# Display Reference
+# Options
+
+    {
+      format: "String representing the origin "
+      tick : how often to update the time 0 for no updates
+    }
+
+# Format Reference
+
+Format is a string consisting of the following components...
+
 %s  : Seconds
 %ss : Seconds Padded
 %m  : Minutes
@@ -22,3 +32,5 @@ $('time').countdown();
 %MINUTES : Minute(s)
 %HOURS   : Hour(s)
 %DAYS    : Day(s)
+
+or the string "human" for a human readable time
