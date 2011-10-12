@@ -1,0 +1,20 @@
+<html>
+<head>
+  <title>Test</title>
+</head>
+
+<body>
+  Countdown: <time id="countdown" datetime="Fri Oct 12 2011 12:00:00 -07:00"></time> until noon oct 12st<br>
+  Relative: march 25th was <time id="relative" datetime="Fri Mar 13 2011"></time><br>
+  Timer: <time id="timer" datetime="Fri Oct 12 2011 06:0:00 -07:00"></time> since i woke up at 6am oct 12st
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery-countdown.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#countdown').relative();
+    $("#relative").relative({format:"human"});
+    $('#timer').relative();
+  });
+</script>
+</html>

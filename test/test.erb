@@ -1,0 +1,18 @@
+<html>
+<head>
+  <title>Test</title>
+</head>
+
+<body>
+  Countdown <time id="countdown" datetime="Fri Oct 31 2011 04:31:03 UTC"></time> <br>
+  Relative <time id="relative" datetime="Fri Mar 25 2011 04:31:03 UTC"></time> 6 Months Ago <br>
+  Timer <time id="timer" datetime="Fri Mar 25 2011 04:31:03 UTC"></time> 6 Months Ago
+</body>
+<script type="text/javascript" src="http://loqi.me/jquery"></script>
+<script type="text/javascript" src="jquery-countdown.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#countdown').countdown();
+  });
+</script>
+</html>
