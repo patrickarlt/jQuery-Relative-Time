@@ -37,7 +37,7 @@
     if (plural == null){
       plural = singular + 's';
     }
-    return (count < 1 ? singular : plural);
+    return (count <= 1 ? singular : plural);
   };
 
   function humanTime(seconds){
@@ -45,17 +45,17 @@
 
     var minutes = Math.floor(seconds / 60);
 
-    if (seconds <= 1) { text = '1 second ago'; } else
+    if (seconds <= 10) { text = 'just now'; } else
     if (seconds <= 59) { text = seconds + ' seconds ago'; } else
-    if (minutes === 1) { text = 'A minute ago'; } else
+    if (minutes === 1) { text = 'a minute ago'; } else
     if (minutes < 45) { text = minutes + ' minutes ago'; } else
-    if (minutes < 90) { text = 'About 1 hour ago'; } else
-    if (minutes < 1440) { text = 'About ' + Math.floor(minutes / 60) + ' hours ago'; } else
+    if (minutes < 90) { text = 'about 1 hour ago'; } else
+    if (minutes < 1440) { text = 'about ' + Math.floor(minutes / 60) + ' hours ago'; } else
     if (minutes < 2880) { text = '1 day ago'; } else
     if (minutes < 43200) { text = Math.floor(minutes / 1440) + ' days ago'; } else
-    if (minutes < 86400) { text = 'About 1 month ago'; } else
+    if (minutes < 86400) { text = 'about 1 month ago'; } else
     if (minutes < 525960) { text = Math.floor(minutes / 43200) + ' months ago'; } else
-    if (minutes < 1051199) { text = 'About 1 year ago'; } else {
+    if (minutes < 1051199) { text = 'about 1 year ago'; } else {
       text = 'Over ' + Math.floor(minutes / 525960) + ' years ago';  
     }
 
@@ -81,10 +81,10 @@
       remaining.minutes,
       remaining.hours,
       remaining.days,
-      pluralize(remaining.seconds, "Second"),
-      pluralize(remaining.minutes, "Minute"),
-      pluralize(remaining.hours, "Hour"),
-      pluralize(remaining.days, "Day")
+      pluralize(remaining.seconds, "second"),
+      pluralize(remaining.minutes, "minute"),
+      pluralize(remaining.hours, "hour"),
+      pluralize(remaining.days, "day")
     ];
 
     var text = format;
@@ -224,11 +224,11 @@ $(function() {
         var timestamp, struct, minutesOffset = 0;
 
         // ES5 §15.9.4.2 states that the string should attempt to be parsed as a Date Time String Format string
-        // before falling back to any implementation-specific date parsing, so that’s what we do, even if native
+        // before falling back to any implementation-specific date parsing, so that's what we do, even if native
         // implementations could be faster
         //              1 YYYY                2 MM       3 DD           4 HH    5 mm       6 ss        7 msec        8 Z 9 ±    10 tzHH    11 tzmm
         if ((struct = /^(\d{4}|[+\-]\d{6})(?:-(\d{2})(?:-(\d{2}))?)?(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{3}))?)?(?:(Z)|([+\-])(\d{2})(?::(\d{2}))?)?)?$/.exec(date))) {
-            // avoid NaN timestamps caused by “undefined” values being passed to Date.UTC
+            // avoid NaN timestamps caused by "undefined" values being passed to Date.UTC
             for (var i = 0, k; (k = numericKeys[i]); ++i) {
                 struct[k] = +struct[k] || 0;
             }
