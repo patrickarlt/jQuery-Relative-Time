@@ -9,18 +9,23 @@
   Relative: march 25th was <time id="relative" datetime="Fri Mar 13 2011"></time><br>
   Timer: <time id="timer" datetime="Fri Oct 12 2011 06:0:00 -07:00"></time> since i woke up at 6am oct 12st
 <h1>Via Data</h1>
-  Countdown: <time data-relativize datetime="Fri Oct 12 2011 12:00:00 -07:00"></time> until noon oct 12st<br>
+  <!--Countdown: <time data-relativize datetime="Fri Oct 12 2011 12:00:00 -07:00"></time> until noon oct 12st<br>
   Relative: march 25th was <time data-relativize="human" datetime="Fri Mar 13 2011"></time><br>
-  Timer: <time data-relativize="%hh:%mm:%ss" datetime="Fri Oct 12 2011 06:0:00 -07:00"></time> since i woke up at 6am oct 12st
-
+  Timer: <time data-relativize="%hh:%mm:%ss" datetime="Fri Oct 12 2011 06:0:00 -07:00"></time> since i woke up at 6am oct 12st-->
+<h1>No Zero</h1>
+  Countdown: <time id="countdown-nozero" datetime="Fri Oct 19 2011 12:00:00 -07:00"></time> until noon oct 12st<br>
+  Timer: <time id="timer-nozero" datetime="Fri Oct 19 2011 06:0:00 -07:00"></time> since i woke up at 6am oct 12st
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="jquery-relative.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#countdown').relative();
-    $("#relative").relative({format:"human"});
-    $('#timer').relative();
+    //$('#countdown').relative();
+    //$("#relative").relative({format:"human"});
+    //$('#timer').relative();
+
+    $('#countdown-nozero').relative({format:"%dd %DAYS %hh %HOURS %mm %MINUTES %ss %SECONDS",displayZeros:false, tick:0});
+    $('#timer-nozero').relative({displayZeros:false, tick:0});
   });
 </script>
 </html>

@@ -3,6 +3,7 @@
     
   var defaults = {
     format: "%dd:%hh:%mm:%ss",
+    displayZeros: true,
     tick: 990
   };
 
@@ -63,7 +64,7 @@
 
   };
 
-  function formatTime(secondsRemaining, format){
+  function formatTime(secondsRemaining, format, displayZeros){
     
     var remaining = {
       days: calcage(secondsRemaining, 86400, 100000),
@@ -90,8 +91,24 @@
     var text = format;
   
     for(i = 0; i <= patterns.length-1; i++ ){
-     
-      tmp = text.replace(patterns[i], replacements[i]);
+      
+      //If display zeros is true replacement should always happen no matter what
+      //if display zeros is false replacement should only happen if the remaining is not zero
+      //if display zeros is false and the replacement is a string render it only if remaining[string] > 0
+      //else remove the pattern from the string
+
+      notZero = !!(parseInt(replacements[i]));
+      isString = (typeof replacements[i] == "string");
+      
+      if(displayZeros){
+        tmp = text.replace(patterns[i], replacements[i]);
+      } else if(notZero) {
+        tmp = text.replace(patterns[i], replacements[i]);
+      } else if(isString && remaining[replacements[i]] > 0) {
+        tmp = text.replace(patterns[i], replacements[i]);
+      } else {
+        tmp = text.replace(patterns[i], "");
+      };
       
       text = tmp;
       
@@ -158,7 +175,7 @@
         if(data.options.format == "human"){
           $(this).text(humanTime(seconds));
         } else {
-          $(this).text(formatTime(seconds, data.options.format));
+          $(this).text(formatTime(seconds, data.options.format, data.options.displayZeros));
         }
         
       });
