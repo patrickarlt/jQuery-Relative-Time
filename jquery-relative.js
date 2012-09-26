@@ -41,23 +41,39 @@
     return (count <= 1 ? singular : plural);
   };
 
-  function humanTime(seconds){
+  function humanTime(seconds, past){
     var text = "";
 
     var minutes = Math.floor(seconds / 60);
 
-    if (seconds <= 10) { text = 'just now'; } else
-    if (seconds <= 59) { text = seconds + ' seconds ago'; } else
-    if (minutes === 1) { text = 'a minute ago'; } else
-    if (minutes < 45) { text = minutes + ' minutes ago'; } else
-    if (minutes < 90) { text = 'about 1 hour ago'; } else
-    if (minutes < 1440) { text = 'about ' + Math.floor(minutes / 60) + ' hours ago'; } else
-    if (minutes < 2880) { text = '1 day ago'; } else
-    if (minutes < 43200) { text = Math.floor(minutes / 1440) + ' days ago'; } else
-    if (minutes < 86400) { text = 'about 1 month ago'; } else
-    if (minutes < 525960) { text = Math.floor(minutes / 43200) + ' months ago'; } else
-    if (minutes < 1051199) { text = 'about 1 year ago'; } else {
-      text = 'Over ' + Math.floor(minutes / 525960) + ' years ago';  
+    if (seconds <= 10) {
+        text = past ? 'just now' : 'any second now';
+    } else if (seconds <= 59) {
+        text = past ? seconds + ' seconds ago' : 'in ' + seconds + ' seconds';
+    } else if (minutes === 1) {
+        text = past ? 'a minute ago' : 'in a minute';
+    } else if (minutes < 45) {
+        text = past ? minutes + ' minutes ago' : 'in ' + minutes + ' minutes';
+    } else if (minutes < 90) {
+        text = past ? 'about 1 hour ago' : 'in the next hour';
+    } else if (minutes < 1440) {
+        hours = Math.floor(minutes / 60);
+        text = past ? 'about ' + hours + ' hours ago' : 'in ' + hours + ' hours';
+    } else if (minutes < 2880) {
+        text = past ? '1 day ago' : 'tomorrow';
+    } else if (minutes < 43200) {
+        days = Math.floor(minutes / 1440);
+        text = past ? days + ' days ago' : 'in ' + days + ' days';
+    } else if (minutes < 86400) {
+        text = past ? 'about 1 month ago' : 'next month';
+    } else if (minutes < 525960) {
+        months = Math.floor(minutes / 43200);
+        text = past ? months + ' months ago' : 'in ' + months + ' months';
+    } else if (minutes < 1051199) {
+        text = past ? 'about 1 year ago' : 'in a year year';
+    } else {
+        years = Math.floor(minutes / 525960);
+        text = past ? 'Over ' + years + ' years ago' : 'in ' + years + ' years';
     }
 
     return text;
@@ -173,7 +189,7 @@
         var seconds = Math.floor(diff / 1000);
         
         if(data.options.format == "human"){
-          $(this).text(humanTime(seconds));
+          $(this).text(humanTime(seconds,now.valueOf() > then.valueOf()));
         } else {
           $(this).text(formatTime(seconds, data.options.format, data.options.displayZeros));
         }
